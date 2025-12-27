@@ -3,7 +3,6 @@ scripts/
 node_modules/
 uploads/
 activity*.js
-auth*.js
 inventory*.js
 message*.js
 notification*.js
