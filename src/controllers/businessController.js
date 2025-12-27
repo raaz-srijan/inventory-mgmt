@@ -187,17 +187,9 @@ async function deleteBusinessId(req, res) {
 
 async function getBusiness(req, res) {
   try {
-    const { businessId } = req.params;
 
-    const business = await Business.findById(businessId)
+    const business = await Business.find()
       .populate("ownerId", "name email");
-
-    if (!business) {
-      return res.status(404).json({
-        success: false,
-        message: "Business not found",
-      });
-    }
 
     return res.status(200).json({
       success: true,
