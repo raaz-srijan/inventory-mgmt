@@ -2,4 +2,12 @@
 scripts/
 node_modules/
 uploads/
-sendEmail.js
+activity*.js
+auth*.js
+inventory*.js
+message*.js
+notification*.js
+post*.js
+staff*.js
+ticket*.js
+socket*.js

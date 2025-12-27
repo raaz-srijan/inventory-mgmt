@@ -3,6 +3,7 @@ const User = require("../models/userSchema");
 const bcrypt = require("bcrypt");
 const fs = require("fs").promises;
 const { uploadImage } = require("../utils/uploadImage");
+const { sendRegistrationMail } = require("../utils/sendEmail");
 
 async function createBusinessId(req, res) {
   try {
@@ -83,6 +84,12 @@ async function createBusinessId(req, res) {
       fs.unlink(citizenshipFront.path),
       fs.unlink(citizenshipBack.path),
     ]);
+
+    try {
+      await sendRegistrationMail(newUser.email, newUser.name, newBusiness.name);
+    } catch (emailError) {
+      console.error("Failed to send registration email:", emailError);
+    }
 
     return res.status(201).json({
       success: true,
@@ -240,4 +247,4 @@ async function getBusinessById(req, res) {
   }
 }
 
-module.exports = {createBusinessId, updateBusinessId, getBusiness, deleteBusinessId, getBusinessById};
+module.exports = { createBusinessId, updateBusinessId, getBusiness, deleteBusinessId, getBusinessById };

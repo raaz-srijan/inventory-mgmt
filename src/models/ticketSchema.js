@@ -1,36 +1,36 @@
 const mongoose = require("mongoose");
 
-const ticketSchema = new ticketSchema({
+const ticketSchema = new mongoose.Schema({
 
-    createdBy:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
 
-    businessId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Business",
+    businessId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Business",
     },
 
-    assignedTo:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User",
+    assignedTo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
     },
 
-    type:String,
+    type: String,
 
-    status:{
-        type:String,
-        enum:["pending", "fixed", ],
-        default:"pending",
+    status: {
+        type: String,
+        enum: ["pending", "fixed",],
+        default: "pending",
     },
 
-    description:{
-        type:String,
-        required:true,
+    description: {
+        type: String,
+        required: true,
     },
 
-}, {timestamps:true});
+}, { timestamps: true });
 
 
 module.exports = mongoose.model("Ticket", ticketSchema);

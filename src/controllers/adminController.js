@@ -1,6 +1,8 @@
 const Business = require("../models/businessSchema");
 const User = require("../models/userSchema");
 const Role = require("../models/roleSchema");
+const mongoose = require("mongoose");
+const { sendVerifiedMail, sendRejectionMail } = require("../utils/sendEmail");
 
 async function verifyBusiness(req, res) {
   try {
@@ -48,7 +50,7 @@ async function verifyBusiness(req, res) {
       });
     }
 
-    await User.findByIdAndUpdate(
+    const owner = await User.findByIdAndUpdate(
       business.ownerId,
       {
         role: ownerRole._id,
@@ -56,6 +58,14 @@ async function verifyBusiness(req, res) {
       },
       { new: true }
     );
+
+    // Send verification email
+    try {
+      await sendVerifiedMail(owner.email, business.name);
+    } catch (emailError) {
+      console.error("Failed to send verification email:", emailError);
+      // We don't return error here because the verification itself succeeded
+    }
 
     return res.status(200).json({
       success: true,
@@ -94,8 +104,18 @@ async function rejectBusiness(req, res) {
     }
 
     business.isVerified = false;
-
     await business.save();
+
+    const owner = await User.findById(business.ownerId);
+
+    // Send rejection email
+    try {
+      if (owner) {
+        await sendRejectionMail(owner.email, business.name, reason);
+      }
+    } catch (emailError) {
+      console.error("Failed to send rejection email:", emailError);
+    }
 
     return res.status(200).json({
       success: true,
@@ -237,4 +257,4 @@ async function deleteBusiness(req, res) {
   }
 }
 
-module.exports = {verifyBusiness, rejectBusiness, reassignBusinessOwner, deleteBusiness};
+module.exports = { verifyBusiness, rejectBusiness, reassignBusinessOwner, deleteBusiness };

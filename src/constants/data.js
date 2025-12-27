@@ -9,38 +9,38 @@ const rolesData = [
 
 const permissionsData = [
   // PLATFORM
-  "manage_platform",
-  "view_error_logs",
-  "fix_bugs",
-  "post_global_announcements",
+  { name: "manage_platform", group: "platform" },
+  { name: "view_error_logs", group: "platform" },
+  { name: "fix_bugs", group: "platform" },
+  { name: "post_global_announcements", group: "platform" },
 
   // ADMIN
-  "verify_business_registration",
-  "approve_owner_accounts",
-  "post_admin_notices",
+  { name: "verify_business_registration", group: "admin" },
+  { name: "approve_owner_accounts", group: "admin" },
+  { name: "post_admin_notices", group: "admin" },
 
   // BUSINESS OWNER
-  "manage_business_roles",
-  "assign_business_permissions",
-  "approve_managers",
-  "view_business_dashboard",
-  "post_business_notices",
+  { name: "manage_business_roles", group: "business" },
+  { name: "assign_business_permissions", group: "business" },
+  { name: "approve_managers", group: "business" },
+  { name: "view_business_dashboard", group: "business" },
+  { name: "post_business_notices", group: "business" },
 
   // MANAGER
-  "manage_staff_roles",
-  "update_inventory",
-  "view_reports",
-  "view_manager_dashboard",
-  "request_permission_changes",
+  { name: "manage_staff_roles", group: "inventory" },
+  { name: "update_inventory", group: "inventory" },
+  { name: "view_reports", group: "inventory" },
+  { name: "view_manager_dashboard", group: "inventory" },
+  { name: "request_permission_changes", group: "inventory" },
 
   // STAFF
-  "view_assigned_inventory",
-  "update_limited_data",
-  "view_notices",
+  { name: "view_assigned_inventory", group: "inventory" },
+  { name: "update_limited_data", group: "inventory" },
+  { name: "view_notices", group: "inventory" },
 
   // COMMON
-  "chat_internal",
-  "report_bugs",
+  { name: "chat_internal", group: "common" },
+  { name: "report_bugs", group: "common" },
 ];
 
 const rolePermissions = {
@@ -89,4 +89,4 @@ const rolePermissions = {
 };
 
 
-module.exports = {rolesData, permissionsData, rolePermissions};
+module.exports = { rolesData, permissionsData, rolePermissions };
