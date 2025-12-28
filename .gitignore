@@ -2,6 +2,3 @@
 scripts/
 node_modules/
 uploads/
-notification*.js
-ticket*.js
-socket*.js
